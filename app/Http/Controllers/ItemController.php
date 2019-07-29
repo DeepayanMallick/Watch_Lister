@@ -30,7 +30,7 @@ class ItemController extends Controller
     { 
         // Get item id    
         $item_id =  $request->input('item_id');
-        dd($item_id); 
+        // dd($item_id); 
 
         //Get item details
         $client = new \GuzzleHttp\Client();
