@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,19 +9,19 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Watch Lister') }}</title>
-  
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    
+
     <style type="text/css">
-     .box{
-      width:600px;
-      margin:0 auto;
-     }
+        .box {
+            width: 600px;
+            margin: 0 auto;
+        }
     </style>
-   
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -28,49 +29,51 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
 <body>
     <div id="app">
         @include('inc.navbar')
         <div class="container">
             @include('inc.messages')
-        </div>        
+        </div>
         <div class="container">
             @yield('content')
         </div>
-    </div>  
-<script>
+    </div>
+    <script>
+        $("#search_item").keyup(function () {
 
-    $("#search_item").keyup(function() {
 
-        
 
-        var list = '';
-        var url_string = window.location.href
-        var url = new URL(url_string);
-        var list = url.searchParams.get("list");
-        console.log(list);        
-        console.log("Halum");
-        if (list){
+            var list = '';
+            var url_string = window.location.href
+            var url = new URL(url_string);
+            var list = url.searchParams.get("list");
+            console.log(list);
+            console.log("Halum");
+            if (list) {
 
-//-------------- start of keyup function --------------//
-                
-var value = $( this ).val();       
+                //-------------- start of keyup function --------------//
 
-if(value != ''){
-    
-var url ='https://api.themoviedb.org/3/search/movie?api_key=3789176a07559b7b185cdcf1d3339e49&query='+value;
+                var value = $(this).val();
 
-$.ajax({
-    url: url,
-    cache: false,
-    success: function(data)
-    {      
-    var item_data, i, x= "", z="";          
-    var item_data = data.results;            
-    var base_img_path = 'https://image.tmdb.org/t/p/original';
-    // Start loop for items
-    for (i in item_data) {
-        x += `
+                if (value != '') {
+
+                    var url =
+                        'https://api.themoviedb.org/3/search/movie?api_key=3789176a07559b7b185cdcf1d3339e49&query=' +
+                        value;
+
+                    $.ajax({
+                        url: url,
+                        cache: false,
+                        success: function (data) {
+                            var item_data, i, x = "",
+                                z = "";
+                            var item_data = data.results;
+                            var base_img_path = 'https://image.tmdb.org/t/p/original';
+                            // Start loop for items
+                            for (i in item_data) {
+                                x += `
         
                 <div class="row itemWrap">
                 <div class="col-2">
@@ -100,44 +103,44 @@ $.ajax({
                 </div>
                 <br>  
                      
-        `;  
-    
-        
-    }
-    // End loop
+        `;
 
-    document.getElementById("items").innerHTML = x; 
-    }
-    
-    });
-    }
-    else {
-        var x = '';
-        document.getElementById("items").innerHTML = x;
-    }
-//-------------- End of keyup function --------------//
 
-        }
-        else{
-            //-------------- start of keyup function --------------//
-                            
-            var value = $( this ).val();       
+                            }
+                            // End loop
 
-            if(value != ''){
-                
-            var url ='https://api.themoviedb.org/3/search/movie?api_key=3789176a07559b7b185cdcf1d3339e49&query='+value;
+                            document.getElementById("items").innerHTML = x;
+                        }
 
-            $.ajax({
-                url: url,
-                cache: false,
-                success: function(data)
-                {      
-                var item_data, i, x= "", z="";          
-                var item_data = data.results;            
-                var base_img_path = 'https://image.tmdb.org/t/p/original';
-                // Start loop for items
-                for (i in item_data) {
-                    x += `
+                    });
+                } else {
+                    var x = '';
+                    document.getElementById("items").innerHTML = x;
+                }
+                //-------------- End of keyup function --------------//
+
+            } else {
+                //-------------- start of keyup function --------------//
+
+                var value = $(this).val();
+
+                if (value != '') {
+
+                    var url =
+                        'https://api.themoviedb.org/3/search/movie?api_key=3789176a07559b7b185cdcf1d3339e49&query=' +
+                        value;
+
+                    $.ajax({
+                        url: url,
+                        cache: false,
+                        success: function (data) {
+                            var item_data, i, x = "",
+                                z = "";
+                            var item_data = data.results;
+                            var base_img_path = 'https://image.tmdb.org/t/p/original';
+                            // Start loop for items
+                            for (i in item_data) {
+                                x += `
                     
                             <div class="row itemWrap">
                             <div class="col-2">
@@ -194,52 +197,44 @@ $.ajax({
                             </div>
                             <br>  
                                 
-                    `;  
-                
-                    
-                }
-                // End loop
+                    `;
 
-                document.getElementById("items").innerHTML = x; 
 
-                var lists = JSON.parse($("#listing").html());
-                var y= "";
-                lists.forEach(function(list){
-                    y += `
+                            }
+                            // End loop
+
+                            document.getElementById("items").innerHTML = x;
+
+                            var lists = JSON.parse($("#listing").html());
+                            var y = "";
+                            lists.forEach(function (list) {
+                                y += `
                         <div class="radio">
                             <label><input type="radio" name="mylist" value="${list.id}">${list.title}</label>
                         </div>
                         `;
-                }) 
-                // var count = i.toString();
-                document.getElementById("list_data_0").innerHTML = y;
-                document.getElementById("list_data_1").innerHTML = y;
-                document.getElementById("list_data_2").innerHTML = y;
-                document.getElementById("list_data_3").innerHTML = y;
-                document.getElementById("list_data_4").innerHTML = y;
-                document.getElementById("list_data_5").innerHTML = y;
-                document.getElementById("list_data_6").innerHTML = y;
-                document.getElementById("list_data_7").innerHTML = y;
-                document.getElementById("list_data_8").innerHTML = y;
-                document.getElementById("list_data_9").innerHTML = y;
-                document.getElementById("list_data_10").innerHTML = y;
+                            });
+                            // console.log("Lenght is:");
+                            // console.log(item_data.length);
+                            for (var i=0; i<item_data.length; i++)
+                            document.getElementById("list_data_"+i).innerHTML = y;
 
+
+                        }
+
+                    });
+                } else {
+                    var x = '';
+                    document.getElementById("items").innerHTML = x;
                 }
-                
-                });
+                //-------------- End of keyup function --------------//
             }
-            else {
-                var x = '';
-                document.getElementById("items").innerHTML = x;
-            }
-            //-------------- End of keyup function --------------//
-        }
 
 
-    
-    }); 
-                     
-</script>
-    
+
+        });
+    </script>
+
 </body>
+
 </html>

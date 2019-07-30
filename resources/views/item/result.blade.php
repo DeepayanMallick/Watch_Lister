@@ -109,18 +109,20 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <form action="/items/search" method="POST">
-                                    @csrf
-                                    <!-- Modal body -->
-                                    <div class="modal-body" id="list_data">                                    
-                                                                                                                   
-                                    </div>
-                                    <input type="hidden" name="item_id" value="${item_data[i].id}">                      
-                                    
-                                    <!-- Myist Modal footer -->
-                                    <div class="clearfix p-2">
-                                        <button type="submit" id="save_item" class="btn btn-primary float-left">Save</button>
-                                        <button type="button" class="btn btn-danger float-right " data-dismiss="modal">Close</button>
-                                    </div>
+                                        @csrf
+                                        <!-- Modal body -->
+                                        <div class="modal-body" id="list_data">
+
+                                        </div>
+                                        <input type="hidden" name="item_id" value="${item_data[i].id}">
+
+                                        <!-- Myist Modal footer -->
+                                        <div class="clearfix p-2">
+                                            <button type="submit" id="save_item"
+                                                class="btn btn-primary float-left">Save</button>
+                                            <button type="button" class="btn btn-danger float-right "
+                                                data-dismiss="modal">Close</button>
+                                        </div>
                                     </form>
                                 </div>
                                 </div>
